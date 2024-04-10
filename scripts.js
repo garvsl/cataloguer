@@ -63,7 +63,7 @@ function editCardContent(card, book) {
 // This calls the addCards() function when the page is first loaded
 document.addEventListener("DOMContentLoaded", showCards);
 
-function quoteAlert() {
+function shuffle() {
   //shuffle the array
 
   for (let i = window.books.length - 1; i > 0; i--) {
@@ -74,7 +74,49 @@ function quoteAlert() {
   showCards();
 }
 
-function removeLastCard() {
+function removeFirstCard() {
   window.books.shift(); // Remove last item in titles array
   showCards(); // Call showCards again to refresh
+}
+
+function sortByGenre() {
+  //go through array and compare adjacent elements to determine if in correct order, sorta similar to shuffle
+  for (let i = 0; i < window.books.length; i++) {
+    for (let j = 0; j < window.books.length - i - 1; j++) {
+      if (window.books[j].genre.localeCompare(window.books[j + 1].genre) > 0) {
+        let temp = window.books[j];
+        window.books[j] = window.books[j + 1];
+        window.books[j + 1] = temp;
+      }
+    }
+  }
+  showCards();
+}
+
+function sortByYear() {
+  //same, but without locale compare since not a string
+  for (let i = 0; i < window.books.length; i++) {
+    for (let j = 0; j < window.books.length - i - 1; j++) {
+      if (window.books[j].year > window.books[j + 1].year) {
+        let temp = window.books[j];
+        window.books[j] = window.books[j + 1];
+        window.books[j + 1] = temp;
+      }
+    }
+  }
+  showCards();
+}
+
+function sortByTitle() {
+  //application for title
+  for (let i = 0; i < window.books.length; i++) {
+    for (let j = 0; j < window.books.length - i - 1; j++) {
+      if (window.books[j].title.localeCompare(window.books[j + 1].title) > 0) {
+        let temp = window.books[j];
+        window.books[j] = window.books[j + 1];
+        window.books[j + 1] = temp;
+      }
+    }
+  }
+  showCards();
 }
