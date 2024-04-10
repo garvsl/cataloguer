@@ -79,11 +79,20 @@ function removeFirstCard() {
   showCards(); // Call showCards again to refresh
 }
 
+let genreAscending = true;
+
 function sortByGenre() {
+  genreAscending = !genreAscending; //toggle between ascending and descend
   //go through array and compare adjacent elements to determine if in correct order, sorta similar to shuffle
   for (let i = 0; i < window.books.length; i++) {
     for (let j = 0; j < window.books.length - i - 1; j++) {
-      if (window.books[j].genre.localeCompare(window.books[j + 1].genre) > 0) {
+      const comparison = window.books[j].genre.localeCompare(
+        window.books[j + 1].genre
+      );
+      if (
+        (genreAscending && comparison < 0) ||
+        (!genreAscending && comparison > 0)
+      ) {
         let temp = window.books[j];
         window.books[j] = window.books[j + 1];
         window.books[j + 1] = temp;
@@ -93,25 +102,47 @@ function sortByGenre() {
   showCards();
 }
 
+let yearAscending = true;
+
 function sortByYear() {
+  yearAscending = !yearAscending;
+
   //same, but without locale compare since not a string
   for (let i = 0; i < window.books.length; i++) {
     for (let j = 0; j < window.books.length - i - 1; j++) {
-      if (window.books[j].year > window.books[j + 1].year) {
-        let temp = window.books[j];
-        window.books[j] = window.books[j + 1];
-        window.books[j + 1] = temp;
+      if (yearAscending) {
+        if (window.books[j].year > window.books[j + 1].year) {
+          let temp = window.books[j];
+          window.books[j] = window.books[j + 1];
+          window.books[j + 1] = temp;
+        }
+      } else {
+        if (window.books[j].year < window.books[j + 1].year) {
+          let temp = window.books[j];
+          window.books[j] = window.books[j + 1];
+          window.books[j + 1] = temp;
+        }
       }
     }
   }
   showCards();
 }
 
+let titleAscending = true;
+
 function sortByTitle() {
+  titleAscending = !titleAscending;
+
   //application for title
   for (let i = 0; i < window.books.length; i++) {
     for (let j = 0; j < window.books.length - i - 1; j++) {
-      if (window.books[j].title.localeCompare(window.books[j + 1].title) > 0) {
+      const compareResult = window.books[j].title.localeCompare(
+        window.books[j + 1].title
+      );
+      if (
+        (titleAscending && compareResult < 0) ||
+        (!titleAscending && compareResult > 0)
+      ) {
         let temp = window.books[j];
         window.books[j] = window.books[j + 1];
         window.books[j + 1] = temp;
