@@ -64,10 +64,17 @@ function editCardContent(card, book) {
 document.addEventListener("DOMContentLoaded", showCards);
 
 function quoteAlert() {
-  console.log("Button Clicked!");
+  //shuffle the array
+
+  for (let i = window.books.length - 1; i > 0; i--) {
+    //start from the end
+    const j = Math.floor(Math.random() * (i + 1)); //get random number and round down
+    [window.books[i], window.books[j]] = [window.books[j], window.books[i]]; //swap adjacent books
+  }
+  showCards();
 }
 
 function removeLastCard() {
-  window.books.pop(); // Remove last item in titles array
+  window.books.shift(); // Remove last item in titles array
   showCards(); // Call showCards again to refresh
 }
