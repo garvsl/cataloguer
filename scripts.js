@@ -57,7 +57,7 @@ function editCardContent(card, book) {
   // You can use console.log to help you debug!
   // View the output by right clicking on your website,
   // select "Inspect", then click on the "Console" tab
-  console.log("new card:", book.title, "- html: ", card);
+  //   console.log("new card:", book.title, "- html: ", card);
 }
 
 // This calls the addCards() function when the page is first loaded
@@ -150,4 +150,36 @@ function sortByTitle() {
     }
   }
   showCards();
+}
+
+const tempBooks = [...window.books]; //store original to make sure no perma changes
+
+let debounceTimer;
+
+function debounce(func, delay) {
+  //custom deboucne function
+  clearTimeout(debounceTimer); //reset timer
+  debounceTimer = setTimeout(() => {
+    func(); //set timer for the function passed
+  }, delay);
+}
+
+function searchBook() {
+  const searchInput = document.getElementById("search-input");
+  const searchValue = searchInput.value.toLowerCase();
+
+  window.books = tempBooks; //reset to original
+  showCards();
+
+  const searchResult = window.books.filter((book) => {
+    //filter based on input
+    return book.title.toLowerCase().includes(searchValue);
+  });
+  window.books = searchResult;
+
+  showCards();
+}
+
+function lessBouncySearch() {
+  debounce(searchBook, 200); //200ms delay
 }
