@@ -1,4 +1,4 @@
-const books = [
+window.books = [
   {
     title: "To Kill a Mockingbird",
     author: "Harper Lee",
